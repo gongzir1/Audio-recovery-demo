@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Listening examples for sparse audio recovery from VGGish internal activations.">
+  <title>Sparse Audio Recovery Demo</title>
+  <style>
+    :root { color-scheme: light; --ink:#172033; --muted:#657086; --line:#dfe4ec; --accent:#2457d6; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:#f6f8fc; color:var(--ink); font:16px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    main { width:min(860px,calc(100% - 32px)); margin:48px auto; }
+    header { margin-bottom:28px; }
+    h1 { margin:0 0 10px; font-size:clamp(2rem,5vw,3.2rem); letter-spacing:-.04em; }
+    h2 { margin:0 0 5px; font-size:1.12rem; }
+    p { margin:0; color:var(--muted); }
+    .note { margin-top:14px; max-width:720px; }
+    .grid { display:grid; gap:14px; }
+    article { padding:20px; border:1px solid var(--line); border-radius:14px; background:white; box-shadow:0 4px 18px rgba(23,32,51,.04); }
+    .meta { display:flex; gap:10px; align-items:baseline; justify-content:space-between; margin-bottom:14px; }
+    .metric { color:var(--accent); font-weight:650; white-space:nowrap; }
+    audio { display:block; width:100%; height:42px; }
+    footer { margin-top:24px; font-size:.9rem; color:var(--muted); }
+    code { color:var(--ink); }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Sparse Audio Recovery</h1>
+    <p>White-box recovery of a real LJ Speech utterance from VGGish internal activations.</p>
+    <p class="note">All recovered samples use the same 8×8 block-DCT representation, 32 retained coefficients per block, and 30,000 proximal-Adam steps. Listen in order to hear how recovery changes with network depth.</p>
+  </header>
+
+  <section class="grid" aria-label="Audio comparisons">
+    <article>
+      <div class="meta"><h2>Original</h2><span class="metric">Source</span></div>
+      <audio controls preload="metadata" src="audio/00_original.wav"></audio>
+    </article>
+    <article>
+      <div class="meta"><h2>Reference resynthesis</h2><span class="metric">Griffin–Lim ceiling</span></div>
+      <audio controls preload="metadata" src="audio/01_reference_griffin_lim.wav"></audio>
+    </article>
+    <article>
+      <div class="meta"><h2>Recovered from Pool 1</h2><span class="metric">19.32 dB</span></div>
+      <audio controls preload="metadata" src="audio/10_recovered_pool1.wav"></audio>
+    </article>
+    <article>
+      <div class="meta"><h2>Recovered from Pool 2</h2><span class="metric">11.83 dB</span></div>
+      <audio controls preload="metadata" src="audio/20_recovered_pool2.wav"></audio>
+    </article>
+    <article>
+      <div class="meta"><h2>Recovered from Pool 3</h2><span class="metric">7.87 dB</span></div>
+      <audio controls preload="metadata" src="audio/30_recovered_pool3.wav"></audio>
+    </article>
+  </section>
+
+  <footer>Log-mel SNR is shown for each recovered sample. Audio is mono PCM WAV at 16 kHz.</footer>
+</main>
+</body>
+</html>
